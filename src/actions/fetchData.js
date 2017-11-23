@@ -10,12 +10,11 @@ export const fetchEpisodes = () => dispatch => {
   axios
     .get('http://localhost:8080/api')
     .then(response =>
-      // dispatch({
-      //   type: FETCH_EPISODES,
-      //   status: 'success',
-      //   response: response.data,
-      // })
-      console.log(response.data)
+      dispatch({
+        type: FETCH_EPISODES,
+        status: 'success',
+        response: response.data,
+      })
     )
     .catch(err => {
       dispatch({

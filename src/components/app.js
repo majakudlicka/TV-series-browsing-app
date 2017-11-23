@@ -23,7 +23,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('state is ', state);
   return {
+    episodes: state.searchEpisodes,
     //   newJob: state.postJob.newJob.response,
     //   errorMessage: state.errorMessage,
     //   postJobRequestStatus: state.postJob.newJob.status,

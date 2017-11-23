@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/api', function(req, res) {
-  res.json(database);
+  res.json(database._embedded.episodes);
 });
 
 app.get('/api/:season', function(req, res) {

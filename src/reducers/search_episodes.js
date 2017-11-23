@@ -1,7 +1,7 @@
 import {FETCH_EPISODES} from '../constants/action_types.js';
 
 const initialState = {
-  episodes: {},
+  episodes: [],
 };
 
 export default (state = initialState, action) => {

@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.4"
+  },
   "proxy": "http://localhost:8080"
 }

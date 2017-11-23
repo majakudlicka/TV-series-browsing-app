@@ -19,7 +19,7 @@ class App extends Component {
         <h3 className="pt-2 brown_title">
           {episode.name}
         </h3>
-        <img src={episode.image} />
+        <img src={episode.image.medium} />
       </div>
     );
   }

@@ -1,47 +1,22 @@
 const express = require('express');
-const database = require('../database/database.json');
 const mongoose = require('mongoose');
-// const env = require('env2');
-// env('./config.env');
 
+//The string should be replaced with a hidden enironment variable in production code
 mongoose.connect('mongodb://test:test@ds119736.mlab.com:19736/episodes-dev');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('connected');
 });
 
-var episodeSchema = mongoose.Schema({
+const episodeSchema = mongoose.Schema({
   name: String,
+  url: String,
+  _embedded: Object,
 });
 
-var episodeModel = mongoose.model('Episode', episodeSchema);
-
-var silence = new episodeModel({name: 'Silence'});
-console.log(silence.name); // 'Silence'
-
-episodeSchema.methods.speak = function() {
-  var greeting = this.name
-    ? 'Meow name is ' + this.name
-    : "I don't have a name";
-  console.log(greeting);
-};
-
-var Episode = mongoose.model('Episode', episodeSchema);
-
-var fluffy = new Episode({name: 'fluffy'});
-// fluffy.speak(); // "Meow name is fluffy"
-
-fluffy.save(function(err, fluffy) {
-  if (err) return console.error(err);
-  // fluffy.speak();
-});
-
-Episode.find(function(err, Episodes) {
-  if (err) return console.error(err);
-  console.log('Episodes are ', Episodes);
-});
+const episodeModel = mongoose.model('Episode', episodeSchema);
 
 const app = express();
 
@@ -57,7 +32,10 @@ app.use(function(req, res, next) {
 });
 
 app.get('/api', function(req, res) {
-  res.json(database._embedded.episodes);
+  episodeModel.find(function(err, Episodes) {
+    if (err) return console.error(err);
+    res.json(Episodes[0]._embedded.episodes);
+  });
 });
 
 app.get('/api/:season', function(req, res) {
@@ -66,9 +44,5 @@ app.get('/api/:season', function(req, res) {
   });
   res.json(selectedEpisode);
 });
-
-// Episodes.find(res => {
-//   console.log('res is', res);
-// });
 
 app.listen(port);

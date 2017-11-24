@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
         episodes: action.response,
       };
     case FILTER_EPISODES:
-      console.log('state.episodes are ', state.episodes);
       let filteredEpisodes = state.episodes.filter(episode => {
         return episode.name.includes(action.response);
       });

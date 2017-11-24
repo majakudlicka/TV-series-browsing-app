@@ -7,6 +7,12 @@ class App extends Component {
   constructor() {
     super();
     this.renderEpisodes = this.renderEpisodes.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+
+    this.state = {
+      searchTerm: '',
+    };
   }
 
   componentWillMount() {
@@ -24,6 +30,18 @@ class App extends Component {
     );
   }
 
+  onSubmit(evt) {
+    evt.preventDefault();
+    console.log(this.state.searchTerm);
+  }
+
+  onInputChange(evt) {
+    let searchTerm = this.state.searchTerm;
+    this.setState({
+      searchTerm: evt.target.value,
+    });
+  }
+
   render() {
     let {episodes} = this.props;
 
@@ -36,6 +54,20 @@ class App extends Component {
     } else {
       return (
         <div className="wrapper">
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label className="control-label" htmlFor="Job Title">
+                Search by title
+              </label>
+              <input
+                className="form-control"
+                id="Search Title"
+                type="text"
+                value={this.state.searchTerm}
+                onChange={this.onInputChange}
+              />
+            </div>
+          </form>
           <ul className="search_results_ul">
             {episodes.map(this.renderEpisodes)}
           </ul>
@@ -46,13 +78,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.searchEpisodes);
   return {
     episodes: state.searchEpisodes.episodes,
-    //   newepisode: state.postepisode.newepisode.response,
-    //   errorMessage: state.errorMessage,
-    //   postepisodeRequestStatus: state.postepisode.newepisode.status,
-    //   residentId,
   };
 }
 

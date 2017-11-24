@@ -32,7 +32,7 @@ class App extends Component {
 
   onSubmit(evt) {
     evt.preventDefault();
-    console.log(this.state.searchTerm);
+    this.props.filterEpisodes(this.state.searchTerm);
   }
 
   onInputChange(evt) {
@@ -55,18 +55,17 @@ class App extends Component {
       return (
         <div className="wrapper">
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label className="control-label" htmlFor="Job Title">
-                Search by title
-              </label>
-              <input
-                className="form-control"
-                id="Search Title"
-                type="text"
-                value={this.state.searchTerm}
-                onChange={this.onInputChange}
-              />
-            </div>
+            <label className="control-label" htmlFor="Job Title">
+              Search by title
+            </label>
+            <input
+              className="form-control"
+              id="Search Title"
+              type="text"
+              value={this.state.searchTerm}
+              onChange={this.onInputChange}
+            />
+            <input type="submit" />
           </form>
           <ul className="search_results_ul">
             {episodes.map(this.renderEpisodes)}
@@ -78,6 +77,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state.searchEpisodes.episodes);
   return {
     episodes: state.searchEpisodes.episodes,
   };

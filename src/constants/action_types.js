@@ -1,1 +1,2 @@
 export const FETCH_EPISODES = 'FETCH_EPISODES';
+export const FILTER_EPISODES = 'FILTER_EPISODES';

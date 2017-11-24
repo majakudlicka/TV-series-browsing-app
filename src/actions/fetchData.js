@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {FETCH_EPISODES} from '../constants/action_types.js';
+import {FILTER_EPISODES} from '../constants/action_types.js';
 
 export const fetchEpisodes = () => dispatch => {
   dispatch({
@@ -22,6 +23,12 @@ export const fetchEpisodes = () => dispatch => {
         status: 'error',
         error: err,
       });
-      console.log(err);
     });
+};
+
+export const filterEpisodes = title => dispatch => {
+  dispatch({
+    type: FILTER_EPISODES,
+    response: title,
+  });
 };

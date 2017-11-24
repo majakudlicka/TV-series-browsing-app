@@ -3,7 +3,7 @@ import {FILTER_EPISODES} from '../constants/action_types.js';
 
 const initialState = {
   episodes: [],
-  filteredEpisodes: [],
+  filteredEpisodes: null,
 };
 
 export default (state = initialState, action) => {

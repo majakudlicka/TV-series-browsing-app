@@ -21,8 +21,8 @@ class App extends Component {
 
   renderEpisodes(episode) {
     return (
-      <div className="episode_wrapper col-md-4" key={episode.id}>
-        <h3 className="pt-2 brown_title">
+      <div className="episode col-md-4" key={episode.id}>
+        <h3 className="brown_title">
           {episode.name}
         </h3>
         <img src={episode.image.medium} />
@@ -52,17 +52,16 @@ class App extends Component {
 
     if (!episodes) {
       return (
-        <div className="">
+        <div className="flex-container">
           <LoadingIndicator />
         </div>
       );
-    } else if (filteredEpisodes.length > 0) {
+    } else if (filteredEpisodes !== null) {
       return (
         <div className="wrapper">
-          <form onSubmit={this.onSubmit}>
-            <label className="control-label" htmlFor="Job Title">
-              Search by title
-            </label>
+          <form className="flex-container" onSubmit={this.onSubmit}>
+            <label className="brown_title">Search by title &nbsp;&nbsp;</label>
+
             <input
               id="Search Title"
               type="text"
@@ -80,8 +79,9 @@ class App extends Component {
     } else {
       return (
         <div className="wrapper">
-          <form onSubmit={this.onSubmit}>
-            <label className="brown_title">Search by title</label>
+          <form className="flex-container" onSubmit={this.onSubmit}>
+            <label className="brown_title">Search by title&nbsp;&nbsp;</label>
+
             <input
               id="Search Title"
               type="text"
@@ -89,8 +89,11 @@ class App extends Component {
               onChange={this.onInputChange}
             />
           </form>
-
-          {episodes.map(this.renderEpisodes)}
+          <div className="container">
+            <div className="row">
+              {episodes.map(this.renderEpisodes)}
+            </div>
+          </div>
         </div>
       );
     }

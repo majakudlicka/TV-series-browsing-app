@@ -1,0 +1,19 @@
+html * {
+  font-family: Futura, sans-serif;
+}
+
+body {
+  background-color: #e4e4e4;
+  color: #000807;
+}
+
+.wrapper {
+  background-color: #f6f6f6;
+  padding: 0 1.5vw 1.5vh 1.5vw;
+  margin: 0 0 1.5vh 0;
+}
+
+.brown_title {
+  color: #815355;
+  font-weight: bold;
+}

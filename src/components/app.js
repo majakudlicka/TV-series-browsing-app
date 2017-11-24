@@ -37,18 +37,44 @@ class App extends Component {
 
   onInputChange(evt) {
     let searchTerm = this.state.searchTerm;
-    this.setState({
-      searchTerm: evt.target.value,
-    });
+    this.setState(
+      {
+        searchTerm: evt.target.value,
+      },
+      () => {
+        this.props.filterEpisodes(this.state.searchTerm);
+      }
+    );
   }
 
   render() {
-    let {episodes} = this.props;
+    let {episodes, filteredEpisodes} = this.props;
 
     if (!episodes) {
       return (
         <div className="register_container flex-container">
           <LoadingIndicator />
+        </div>
+      );
+    } else if (filteredEpisodes.length > 0) {
+      return (
+        <div className="wrapper">
+          <form onSubmit={this.onSubmit}>
+            <label className="control-label" htmlFor="Job Title">
+              Search by title
+            </label>
+            <input
+              className="form-control"
+              id="Search Title"
+              type="text"
+              value={this.state.searchTerm}
+              onChange={this.onInputChange}
+            />
+            <input type="submit" />
+          </form>
+          <ul className="search_results_ul">
+            {filteredEpisodes.map(this.renderEpisodes)}
+          </ul>
         </div>
       );
     } else {
@@ -80,6 +106,7 @@ function mapStateToProps(state) {
   console.log(state.searchEpisodes.episodes);
   return {
     episodes: state.searchEpisodes.episodes,
+    filteredEpisodes: state.searchEpisodes.filteredEpisodes,
   };
 }
 

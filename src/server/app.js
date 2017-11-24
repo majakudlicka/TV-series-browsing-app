@@ -20,10 +20,12 @@ app.get('/api', function(req, res) {
 });
 
 app.get('/api/:season', function(req, res) {
-  selectedEpisode = database._embedded.episodes.filter(episode => {
-    return episode.season === season;
+  episodeModel.find(function(err, Episodes) {
+    selectedEpisode = Episodes[0]._embedded.episodes.filter(episode => {
+      return episode.season === Number(req.params.season);
+    });
+    res.json(selectedEpisode);
   });
-  res.json(selectedEpisode);
 });
 
 module.exports = app;

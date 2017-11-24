@@ -9,7 +9,7 @@ export const fetchEpisodes = () => dispatch => {
   });
 
   axios
-    .get('http://localhost:8080/api')
+    .get('/api')
     .then(response =>
       dispatch({
         type: FETCH_EPISODES,
@@ -26,9 +26,9 @@ export const fetchEpisodes = () => dispatch => {
     });
 };
 
-export const filterEpisodes = title => dispatch => {
-  dispatch({
+export const filterEpisodes = title => {
+  return {
     type: FILTER_EPISODES,
     response: title,
-  });
+  };
 };

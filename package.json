@@ -25,6 +25,8 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
-    "babel-jest": "^21.2.0"
+    "babel-jest": "^21.2.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   }
 }

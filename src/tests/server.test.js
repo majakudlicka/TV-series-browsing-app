@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../server/app.js', {bustCache: true});
 
-//Tests can take a while to run depending on database response time
+//In case database response is slow
 jest.setTimeout(30000);
 
 describe('Test the root path', () => {
@@ -47,21 +47,30 @@ describe('Test that server returns 404 for unknown routes', () => {
       done();
     });
   });
+});
 
-  // test('Test that the body is an array and has length > 0', done => {
-  //   request(app).get('/api/2').then(response => {
-  //     expect(response.body.length).toBeGreaterThan(0);
-  //     expect(Array.isArray(response.body)).toBeTruthy();
-  //     done();
-  //   });
-  // });
-  //
-  // test('It should response with application/json MIME type', done => {
-  //   request(app).get('/api/2').then(response => {
-  //     expect(response.headers['content-type']).toBe(
-  //       'application/json; charset=utf-8'
-  //     );
-  //     done();
-  //   });
-  // });
+describe('Test the api/season route', () => {
+  test('It should response with 200 status code', done => {
+    request(app).get('/api').then(response => {
+      expect(response.statusCode).toBe(200);
+      done();
+    });
+  });
+
+  test('Test that the body is an array and has length > 0', done => {
+    request(app).get('/api/2').then(response => {
+      expect(response.body.length).toBeGreaterThan(0);
+      expect(Array.isArray(response.body)).toBeTruthy();
+      done();
+    });
+  });
+
+  test('It should response with application/json MIME type', done => {
+    request(app).get('/api/2').then(response => {
+      expect(response.headers['content-type']).toBe(
+        'application/json; charset=utf-8'
+      );
+      done();
+    });
+  });
 });

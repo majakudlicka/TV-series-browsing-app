@@ -23,9 +23,8 @@ app.use(function(req, res, next) {
 });
 
 app.get('/api/:season', function(req, res) {
-  console.log('seaosn is', req.params.season);
   episodeModel.find(function(err, Episodes) {
-    selectedEpisode = Episodes[0]._embedded.episodes.filter(episode => {
+    let selectedEpisode = Episodes[0]._embedded.episodes.filter(episode => {
       return episode.season === Number(req.params.season);
     });
     res.json(selectedEpisode);

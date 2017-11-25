@@ -58,7 +58,6 @@ class App extends Component {
   }
 
   onSubmitSeason(evt) {
-    console.log('selected season is ', this.state.selectedSeason);
     evt.preventDefault();
     this.props.selectSeason(this.state.selectedSeason);
   }
@@ -75,25 +74,32 @@ class App extends Component {
     } else if (filteredEpisodes !== null) {
       return (
         <div className="wrapper">
-          <form className="flex-container" onSubmit={this.onSubmit}>
-            <label className="brown_title">Search by title&nbsp;&nbsp;</label>
-            <input
-              id="Search Title"
-              type="text"
-              value={this.state.searchTerm}
-              onChange={this.onInputChange}
-            />&nbsp;&nbsp;&nbsp;&nbsp;
-            <label className="brown_title">
-              Search by season:&nbsp;&nbsp;{' '}
-            </label>
-            <input
-              type="text"
-              id="season"
-              name="season"
-              value={this.state.selectedSeason}
-              onChange={this.onSeasonChange}
-            />
-          </form>
+          <div className="flex-container">
+            <form onSubmit={this.onSubmit}>
+              <label className="brown_title">Search by title&nbsp;&nbsp;</label>
+              <input
+                id="Search Title"
+                type="text"
+                value={this.state.searchTerm}
+                onChange={this.onInputChange}
+              />&nbsp;&nbsp;&nbsp;&nbsp;
+            </form>
+            <form onSubmit={this.onSubmitSeason}>
+              <label className="brown_title">
+                Search by season:&nbsp;&nbsp;{' '}
+              </label>
+              <input
+                type="text"
+                id="season"
+                name="season"
+                value={this.state.selectedSeason}
+                onChange={this.onSeasonChange}
+              />
+            </form>
+            <button type="submit" onClick={this.props.fetchEpisodes}>
+              Refresh
+            </button>
+          </div>
 
           <div className="container">
             <div className="row">
@@ -105,29 +111,33 @@ class App extends Component {
     } else {
       return (
         <div className="wrapper">
-          <form className="flex-container" onSubmit={this.onSubmit}>
-            <label className="brown_title">Search by title&nbsp;&nbsp;</label>
-            <input
-              id="Search Title"
-              type="text"
-              value={this.state.searchTerm}
-              onChange={this.onInputChange}
-            />&nbsp;&nbsp;&nbsp;&nbsp;
-          </form>
-          <form onSubmit={this.onSubmitSeason}>
-            <label className="brown_title">
-              Search by season:&nbsp;&nbsp;{' '}
-            </label>
-            <input
-              type="text"
-              id="season"
-              name="season"
-              value={this.state.selectedSeason}
-              onChange={this.onSeasonChange}
-            />
-          </form>
+          <div className="flex-container">
+            <form onSubmit={this.onSubmit}>
+              <label className="brown_title">Search by title&nbsp;&nbsp;</label>
+              <input
+                id="Search Title"
+                type="text"
+                value={this.state.searchTerm}
+                onChange={this.onInputChange}
+              />&nbsp;&nbsp;&nbsp;&nbsp;
+            </form>
+            <form onSubmit={this.onSubmitSeason}>
+              <label className="brown_title">
+                Search by season:&nbsp;&nbsp;{' '}
+              </label>
+              <input
+                type="text"
+                id="season"
+                name="season"
+                value={this.state.selectedSeason}
+                onChange={this.onSeasonChange}
+              />
+            </form>
+            <button type="submit" onClick={this.props.fetchEpisodes}>
+              Refresh
+            </button>
+          </div>
 
-          <form className="flex-container" />
           <div className="container">
             <div className="row">
               {episodes.map(this.renderEpisodes)}
@@ -141,6 +151,13 @@ class App extends Component {
 
 function mapStateToProps(state) {
   console.log(state.searchEpisodes.episodes);
+  if (
+    state.searchEpisodes.filteredEpisodes &&
+    state.searchEpisodes.filteredEpisodes.length ===
+      state.searchEpisodes.episodes.length
+  ) {
+    state.searchEpisodes.filteredEpisodes = null;
+  }
   return {
     episodes: state.searchEpisodes.episodes,
     filteredEpisodes: state.searchEpisodes.filteredEpisodes,

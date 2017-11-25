@@ -5,6 +5,7 @@ describe('search episodes reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       episodes: [],
+      filteredEpisodes: null,
     });
   });
 
@@ -68,13 +69,35 @@ describe('search episodes reducer', () => {
         }
       )
     ).toEqual({
-      episodes: [
+      episodes: [{id: 1, name: 'a', season: 2}, {id: 2, name: 'b', season: 3}],
+      filteredEpisodes: [{id: 2, name: 'b', season: 3}],
+    });
+  });
+
+  it('should handle SELECT_SEASON', () => {
+    expect(
+      reducer(
         {
-          id: 2,
-          name: 'b',
-          season: 3,
+          episodes: [
+            {
+              id: 1,
+              name: 'a',
+              season: 2,
+            },
+            {
+              id: 2,
+              name: 'b',
+              season: 3,
+            },
+          ],
         },
-      ],
+        {
+          type: types.SELECT_SEASON,
+          response: '3',
+        }
+      )
+    ).toEqual({
+      episodes: '3',
     });
   });
 });

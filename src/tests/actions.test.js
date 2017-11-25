@@ -11,7 +11,11 @@ describe('actions', () => {
     expect(actions.filterEpisodes('Example title')).toEqual(expectedAction);
   });
 
-  it('should return a dispatch function', () => {
+  it('(fetchEpisodes) should return a dispatch function', () => {
     expect(typeof actions.fetchEpisodes()).toEqual('function');
+  });
+
+  it('(selectSeason) should return a dispatch function', () => {
+    expect(typeof actions.selectSeason()).toEqual('function');
   });
 });

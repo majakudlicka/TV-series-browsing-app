@@ -26,8 +26,8 @@ You need to have Node.js installed in order to run the app.
 ## How to launch tests
 
 1. Naviagate into the root folder
-2. Run 'npm test' commander
-3. Test will be displayed in the console
+2. Run 'npm test' command
+3. Tests will be displayed in the console
 
 
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-//The string should be replaced with a hidden enironment variable in production code
-mongoose.connect('mongodb://test:test@ds119736.mlab.com:19736/episodes-dev');
+mongoose.connect(process.env.MONGO_URI);
 
 //Connecting to MongoDB
 const db = mongoose.connection;

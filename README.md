@@ -17,8 +17,9 @@ by title (which is performed on the front end) or by series (which is performed 
 1. Clone the repo and navigate into the root folder
 2. Run 'npm i' command
 3. Run 'npm start' command (starts React registerServiceWorker)
-4. Navigate into the server folder and run 'npm start' command (starts Express server)
-5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
+4. Navigate into the server folder
+5. Run 'npm i' and 'npm start' commands (starts Express server)
+6. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
 
 You need to have Node.js installed in order to run the app.
 

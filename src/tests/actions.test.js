@@ -1,6 +1,7 @@
 import * as types from '../constants/action_types.js';
 import * as actions from '../actions/fetchData.js';
 
+//Tests for actions
 describe('actions', () => {
   it('should create an action with a response being a passed movie tittle', () => {
     const text = 'Example title';

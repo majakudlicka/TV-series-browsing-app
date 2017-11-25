@@ -5,6 +5,7 @@ import {
   SELECT_SEASON,
 } from '../constants/action_types.js';
 
+//Fetches all episodes - async
 export const fetchEpisodes = () => dispatch => {
   dispatch({
     type: FETCH_EPISODES,
@@ -29,6 +30,7 @@ export const fetchEpisodes = () => dispatch => {
     });
 };
 
+//Filters episodes by title - filtering is done on front end
 export const filterEpisodes = title => {
   return {
     type: FILTER_EPISODES,
@@ -36,6 +38,7 @@ export const filterEpisodes = title => {
   };
 };
 
+//Fetches episodes from selected season - filtering is done on back end - async
 export const selectSeason = season => dispatch => {
   dispatch({
     type: SELECT_SEASON,

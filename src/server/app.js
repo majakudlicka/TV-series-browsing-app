@@ -1,18 +1,9 @@
 const express = require('express');
 const episodeModel = require('./db.js');
-var bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
-
-var urlencodedParser = bodyParser.urlencoded({extended: false});
-app.use(bodyParser.json());
-
+//Sets headers to accept cross origin
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -22,6 +13,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Route for a specific season
 app.get('/api/:season', function(req, res) {
   episodeModel.find(function(err, Episodes) {
     let selectedEpisode = Episodes[0]._embedded.episodes.filter(episode => {
@@ -31,6 +23,7 @@ app.get('/api/:season', function(req, res) {
   });
 });
 
+//Route for all seasons
 app.get('/api', function(req, res) {
   episodeModel.find(function(err, Episodes) {
     if (err) return console.error(err);

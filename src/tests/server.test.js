@@ -4,6 +4,7 @@ const app = require('../server/app.js', {bustCache: true});
 //In case database response is slow
 jest.setTimeout(30000);
 
+//Tests for server
 describe('Test the root path', () => {
   test('It should response with 200 status code', done => {
     request(app).get('/api').then(response => {

@@ -7,8 +7,8 @@ class App extends Component {
   constructor() {
     super();
     this.renderEpisodes = this.renderEpisodes.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmitTitle = this.onSubmitTitle.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
     this.onSubmitSeason = this.onSubmitSeason.bind(this);
     this.onSeasonChange = this.onSeasonChange.bind(this);
 
@@ -22,6 +22,7 @@ class App extends Component {
     this.props.fetchEpisodes();
   }
 
+  //Renders individual episode
   renderEpisodes(episode) {
     return (
       <div className="episode col-md-4" key={episode.id}>
@@ -33,12 +34,20 @@ class App extends Component {
     );
   }
 
-  onSubmit(evt) {
+  //Filetrs episodes by title on front end on submit
+  onSubmitTitle(evt) {
     evt.preventDefault();
     this.props.filterEpisodes(this.state.searchTerm);
   }
 
-  onInputChange(evt) {
+  //Sends request to backend for list of episodes filtered by season
+  onSubmitSeason(evt) {
+    evt.preventDefault();
+    this.props.selectSeason(this.state.selectedSeason);
+  }
+
+  //Filetrs episodes by title on front end on input change
+  onTitleChange(evt) {
     let searchTerm = this.state.searchTerm;
     this.setState(
       {
@@ -50,6 +59,7 @@ class App extends Component {
     );
   }
 
+  //Updates 'selectedSeason' component state
   onSeasonChange(evt) {
     let selectedSeason = this.state.selectedSeason;
     this.setState({
@@ -57,11 +67,8 @@ class App extends Component {
     });
   }
 
-  onSubmitSeason(evt) {
-    evt.preventDefault();
-    this.props.selectSeason(this.state.selectedSeason);
-  }
-
+  //If filteredEpisodes are not null (if user searches by title), filterEpisodes are rendered;
+  //otherwise entire list of episodes from backend is rendered
   render() {
     let {episodes, filteredEpisodes} = this.props;
 
@@ -75,13 +82,13 @@ class App extends Component {
       return (
         <div className="wrapper">
           <div className="flex-container">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmitTitle}>
               <label className="brown_title">Search by title&nbsp;&nbsp;</label>
               <input
                 id="Search Title"
                 type="text"
                 value={this.state.searchTerm}
-                onChange={this.onInputChange}
+                onChange={this.onTitleChange}
               />&nbsp;&nbsp;&nbsp;&nbsp;
             </form>
             <form onSubmit={this.onSubmitSeason}>
@@ -112,13 +119,13 @@ class App extends Component {
       return (
         <div className="wrapper">
           <div className="flex-container">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmitTitle}>
               <label className="brown_title">Search by title&nbsp;&nbsp;</label>
               <input
                 id="Search Title"
                 type="text"
                 value={this.state.searchTerm}
-                onChange={this.onInputChange}
+                onChange={this.onTitleChange}
               />&nbsp;&nbsp;&nbsp;&nbsp;
             </form>
             <form onSubmit={this.onSubmitSeason}>
@@ -150,7 +157,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.searchEpisodes.episodes);
+  //Resets the list of episodes  - gets rid of the buggy behaviour in case user wants to
+  // filter by season after filtering by title
   if (
     state.searchEpisodes.filteredEpisodes &&
     state.searchEpisodes.filteredEpisodes.length ===

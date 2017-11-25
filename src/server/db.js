@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 //The string should be replaced with a hidden enironment variable in production code
 mongoose.connect('mongodb://test:test@ds119736.mlab.com:19736/episodes-dev');
 
+//Connecting to MongoDB
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

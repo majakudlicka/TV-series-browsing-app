@@ -1,6 +1,7 @@
 import reducer from '../reducers/search_episodes.js';
 import * as types from '../constants/action_types.js';
 
+//Tests for reducers
 describe('search episodes reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({

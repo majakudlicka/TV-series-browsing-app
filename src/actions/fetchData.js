@@ -1,6 +1,9 @@
 import axios from 'axios';
-import {FETCH_EPISODES} from '../constants/action_types.js';
-import {FILTER_EPISODES} from '../constants/action_types.js';
+import {
+  FETCH_EPISODES,
+  FILTER_EPISODES,
+  SELECT_SEASON,
+} from '../constants/action_types.js';
 
 export const fetchEpisodes = () => dispatch => {
   dispatch({
@@ -31,4 +34,28 @@ export const filterEpisodes = title => {
     type: FILTER_EPISODES,
     response: title,
   };
+};
+
+export const selectSeason = season => dispatch => {
+  dispatch({
+    type: SELECT_SEASON,
+    status: 'pending',
+  });
+
+  axios
+    .get('/api/' + season)
+    .then(response =>
+      dispatch({
+        type: SELECT_SEASON,
+        status: 'success',
+        response: response.data,
+      })
+    )
+    .catch(err => {
+      dispatch({
+        type: SELECT_SEASON,
+        status: 'error',
+        error: err,
+      });
+    });
 };

@@ -1,5 +1,8 @@
-import {FETCH_EPISODES} from '../constants/action_types.js';
-import {FILTER_EPISODES} from '../constants/action_types.js';
+import {
+  FETCH_EPISODES,
+  FILTER_EPISODES,
+  SELECT_SEASON,
+} from '../constants/action_types.js';
 
 const initialState = {
   episodes: [],
@@ -9,6 +12,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_EPISODES:
+      return {
+        ...state,
+        episodes: action.response,
+      };
+    case SELECT_SEASON:
       return {
         ...state,
         episodes: action.response,

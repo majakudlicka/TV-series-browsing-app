@@ -9,9 +9,12 @@ class App extends Component {
     this.renderEpisodes = this.renderEpisodes.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmitSeason = this.onSubmitSeason.bind(this);
+    this.onSeasonChange = this.onSeasonChange.bind(this);
 
     this.state = {
       searchTerm: '',
+      selectedSeason: '',
     };
   }
 
@@ -47,6 +50,19 @@ class App extends Component {
     );
   }
 
+  onSeasonChange(evt) {
+    let selectedSeason = this.state.selectedSeason;
+    this.setState({
+      selectedSeason: evt.target.value,
+    });
+  }
+
+  onSubmitSeason(evt) {
+    console.log('selected season is ', this.state.selectedSeason);
+    evt.preventDefault();
+    this.props.selectSeason(this.state.selectedSeason);
+  }
+
   render() {
     let {episodes, filteredEpisodes} = this.props;
 
@@ -60,15 +76,25 @@ class App extends Component {
       return (
         <div className="wrapper">
           <form className="flex-container" onSubmit={this.onSubmit}>
-            <label className="brown_title">Search by title &nbsp;&nbsp;</label>
-
+            <label className="brown_title">Search by title&nbsp;&nbsp;</label>
             <input
               id="Search Title"
               type="text"
               value={this.state.searchTerm}
               onChange={this.onInputChange}
+            />&nbsp;&nbsp;&nbsp;&nbsp;
+            <label className="brown_title">
+              Search by season:&nbsp;&nbsp;{' '}
+            </label>
+            <input
+              type="text"
+              id="season"
+              name="season"
+              value={this.state.selectedSeason}
+              onChange={this.onSeasonChange}
             />
           </form>
+
           <div className="container">
             <div className="row">
               {filteredEpisodes.map(this.renderEpisodes)}
@@ -81,14 +107,27 @@ class App extends Component {
         <div className="wrapper">
           <form className="flex-container" onSubmit={this.onSubmit}>
             <label className="brown_title">Search by title&nbsp;&nbsp;</label>
-
             <input
               id="Search Title"
               type="text"
               value={this.state.searchTerm}
               onChange={this.onInputChange}
+            />&nbsp;&nbsp;&nbsp;&nbsp;
+          </form>
+          <form onSubmit={this.onSubmitSeason}>
+            <label className="brown_title">
+              Search by season:&nbsp;&nbsp;{' '}
+            </label>
+            <input
+              type="text"
+              id="season"
+              name="season"
+              value={this.state.selectedSeason}
+              onChange={this.onSeasonChange}
             />
           </form>
+
+          <form className="flex-container" />
           <div className="container">
             <div className="row">
               {episodes.map(this.renderEpisodes)}

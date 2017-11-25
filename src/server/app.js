@@ -1,7 +1,17 @@
 const express = require('express');
 const episodeModel = require('./db.js');
+var bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
+
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -12,19 +22,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/api', function(req, res) {
-  episodeModel.find(function(err, Episodes) {
-    if (err) return console.error(err);
-    res.json(Episodes[0]._embedded.episodes);
-  });
-});
-
 app.get('/api/:season', function(req, res) {
+  console.log('seaosn is', req.params.season);
   episodeModel.find(function(err, Episodes) {
     selectedEpisode = Episodes[0]._embedded.episodes.filter(episode => {
       return episode.season === Number(req.params.season);
     });
     res.json(selectedEpisode);
+  });
+});
+
+app.get('/api', function(req, res) {
+  episodeModel.find(function(err, Episodes) {
+    if (err) return console.error(err);
+    res.json(Episodes[0]._embedded.episodes);
   });
 });
 

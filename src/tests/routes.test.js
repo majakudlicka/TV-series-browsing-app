@@ -1,6 +1,9 @@
 const request = require('supertest');
 const app = require('../server/app.js', {bustCache: true});
 
+//In case of slow database response
+jest.setTimeout(30000);
+
 //Testing the routes
 describe('Test the root path', () => {
   test('It should response with 200 status code', done => {

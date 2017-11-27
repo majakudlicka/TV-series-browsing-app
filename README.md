@@ -14,7 +14,7 @@ by title (which is performed on the front end) or by series (which is performed 
 
 ## How to launch the app
 
-1. Clone the repo and navigate into the folder my-app/src/server folder
+1. Clone the repo and navigate into the my-app/src/server folder
 2. Run 'npm i' command
 3. Run 'npm start' command (starts Express server)
 4. Naviagte into the root folder

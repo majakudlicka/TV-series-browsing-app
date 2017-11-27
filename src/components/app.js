@@ -29,7 +29,7 @@ class App extends Component {
         <h3 className="brown_title">
           {episode.name}
         </h3>
-        <img src={episode.image.medium} />
+        <img alt="episode_image" src={episode.image.medium} />
       </div>
     );
   }
@@ -48,7 +48,6 @@ class App extends Component {
 
   //Filetrs episodes by title on front end on input change
   onTitleChange(evt) {
-    let searchTerm = this.state.searchTerm;
     this.setState(
       {
         searchTerm: evt.target.value,
@@ -61,7 +60,6 @@ class App extends Component {
 
   //Updates 'selectedSeason' component state
   onSeasonChange(evt) {
-    let selectedSeason = this.state.selectedSeason;
     this.setState({
       selectedSeason: evt.target.value,
     });
@@ -144,7 +142,6 @@ class App extends Component {
               Refresh
             </button>
           </div>
-
           <div className="container">
             <div className="row">
               {episodes.map(this.renderEpisodes)}

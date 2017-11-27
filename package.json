@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-    "env2": "^2.2.0",
     "jest": "^21.2.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",

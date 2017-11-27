@@ -16,7 +16,7 @@ by title (which is performed on the front end) or by series (which is performed 
 
 1. Clone the repo and navigate into the OneFlow-coding-challenge/src/server folder
 2. Run 'npm i' command
-3. Run 'npm start' command (starts Express server)
+3. Run 'npm start' command (starts Express server). Keep the server running.
 4. Naviagte into the root folder
 5. Run 'npm i' command
 6. Run 'npm start' command (starts React registerServiceWorker)
